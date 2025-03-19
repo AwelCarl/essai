@@ -25,7 +25,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_7bd31c3c4c17d5f2281a4d0a9d35a717 {
+                #map_386e29d3f45dc146112e2bdddd4d9a96 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,23 +35,30 @@
                 .leaflet-container { font-size: 1rem; }
             </style>
         
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iso8601-js-period@0.2.1/iso8601.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.control.css"/>
 </head>
 <body>
     
     
-            <div class="folium-map" id="map_7bd31c3c4c17d5f2281a4d0a9d35a717" ></div>
+            <div class="folium-map" id="map_386e29d3f45dc146112e2bdddd4d9a96" ></div>
         
 </body>
 <script>
     
     
-            var map_7bd31c3c4c17d5f2281a4d0a9d35a717 = L.map(
-                "map_7bd31c3c4c17d5f2281a4d0a9d35a717",
+            var map_386e29d3f45dc146112e2bdddd4d9a96 = L.map(
+                "map_386e29d3f45dc146112e2bdddd4d9a96",
                 {
-                    center: [46.33488, 2.1371365],
+                    center: [46.2276, 2.2137],
                     crs: L.CRS.EPSG3857,
                     ...{
-  "zoom": 6,
+  "zoom": 5,
   "zoomControl": true,
   "preferCanvas": false,
 }
@@ -63,7 +70,7 @@
 
         
     
-            var tile_layer_ccae5712c52e6d7117b4b6dc3b05fd98 = L.tileLayer(
+            var tile_layer_3e5bc748e3fb74af80bdba3ee0401f3d = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -80,199 +87,81 @@
             );
         
     
-            tile_layer_ccae5712c52e6d7117b4b6dc3b05fd98.addTo(map_7bd31c3c4c17d5f2281a4d0a9d35a717);
+            tile_layer_3e5bc748e3fb74af80bdba3ee0401f3d.addTo(map_386e29d3f45dc146112e2bdddd4d9a96);
         
     
-            var marker_21da352228f46358893edb5dfe61f9c8 = L.marker(
-                [43.946676, 4.330761],
+            L.Control.TimeDimensionCustom = L.Control.TimeDimension.extend({
+                _getDisplayDateFormat: function(date){
+                    var newdate = new moment(date);
+                    console.log(newdate)
+                    return newdate.format("YYYY-MM-DD");
+                }
+            });
+            map_386e29d3f45dc146112e2bdddd4d9a96.timeDimension = L.timeDimension(
                 {
-}
-            ).addTo(map_7bd31c3c4c17d5f2281a4d0a9d35a717);
-        
-    
-        var popup_fde19b7d6e95647ea17b100862712aca = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_a2725d649d012a460c3f4df90c2747b8 = $(`<div id="html_a2725d649d012a460c3f4df90c2747b8" style="width: 100.0%; height: 100.0%;">30228</div>`)[0];
-                popup_fde19b7d6e95647ea17b100862712aca.setContent(html_a2725d649d012a460c3f4df90c2747b8);
-            
-        
-
-        marker_21da352228f46358893edb5dfe61f9c8.bindPopup(popup_fde19b7d6e95647ea17b100862712aca)
-        ;
-
-        
-    
-    
-            var marker_760543d5fdc673cda1cca49ac15ce6c7 = L.marker(
-                [48.723084, -0.056488],
+                    period: "P1D",
+                }
+            );
+            var timeDimensionControl = new L.Control.TimeDimensionCustom(
                 {
+  "position": "bottomleft",
+  "minSpeed": 0.1,
+  "maxSpeed": 1,
+  "autoPlay": true,
+  "loopButton": true,
+  "timeSliderDragUpdate": true,
+  "speedSlider": true,
+  "playerOptions": {
+  "transitionTime": 200,
+  "loop": false,
+  "startOver": true,
+},
 }
-            ).addTo(map_7bd31c3c4c17d5f2281a4d0a9d35a717);
-        
-    
-        var popup_826c92fa6826542d01631be39a3e0662 = L.popup({
-  "maxWidth": "100%",
-});
+            );
+            map_386e29d3f45dc146112e2bdddd4d9a96.addControl(this.timeDimensionControl);
 
-        
-            
-                var html_9715078771a9f39e4bb2ab3165ac45f6 = $(`<div id="html_9715078771a9f39e4bb2ab3165ac45f6" style="width: 100.0%; height: 100.0%;">61153</div>`)[0];
-                popup_826c92fa6826542d01631be39a3e0662.setContent(html_9715078771a9f39e4bb2ab3165ac45f6);
-            
-        
+            var geoJsonLayer = L.geoJson({"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {"time": "2015-09-26", "popup": "Paris - Cr\u00e9\u00e9 le 2015-09-26", "icon": "circle", "iconstyle": {"fillColor": "red", "fillOpacity": 0.8, "stroke": "true", "radius": 7}}, "geometry": {"type": "Point", "coordinates": [2.3508, 48.8567]}}, {"type": "Feature", "properties": {"time": "2023-06-25", "popup": "Lyon - Cr\u00e9\u00e9 le 2023-06-25", "icon": "circle", "iconstyle": {"fillColor": "red", "fillOpacity": 0.8, "stroke": "true", "radius": 7}}, "geometry": {"type": "Point", "coordinates": [4.8492, 45.7589]}}, {"type": "Feature", "properties": {"time": "2015-03-31", "popup": "Marseille - Cr\u00e9\u00e9 le 2015-03-31", "icon": "circle", "iconstyle": {"fillColor": "red", "fillOpacity": 0.8, "stroke": "true", "radius": 7}}, "geometry": {"type": "Point", "coordinates": [5.3698, 43.2965]}}, {"type": "Feature", "properties": {"time": "2023-05-03", "popup": "Bordeaux - Cr\u00e9\u00e9 le 2023-05-03", "icon": "circle", "iconstyle": {"fillColor": "red", "fillOpacity": 0.8, "stroke": "true", "radius": 7}}, "geometry": {"type": "Point", "coordinates": [-0.5792, 44.8378]}}, {"type": "Feature", "properties": {"time": "2013-05-25", "popup": "Fort-de-France - Cr\u00e9\u00e9 le 2013-05-25", "icon": "circle", "iconstyle": {"fillColor": "red", "fillOpacity": 0.8, "stroke": "true", "radius": 7}}, "geometry": {"type": "Point", "coordinates": [-61.0067, 14.6083]}}, {"type": "Feature", "properties": {"time": "2012-07-24", "popup": "Le Lamentin - Cr\u00e9\u00e9 le 2012-07-24", "icon": "circle", "iconstyle": {"fillColor": "red", "fillOpacity": 0.8, "stroke": "true", "radius": 7}}, "geometry": {"type": "Point", "coordinates": [-60.9967, 14.6033]}}, {"type": "Feature", "properties": {"time": "2013-06-07", "popup": "N\u00eemes - Cr\u00e9\u00e9 le 2013-06-07", "icon": "circle", "iconstyle": {"fillColor": "red", "fillOpacity": 0.8, "stroke": "true", "radius": 7}}, "geometry": {"type": "Point", "coordinates": [4.3601, 43.8367]}}, {"type": "Feature", "properties": {"time": "2013-10-04", "popup": "Flers - Cr\u00e9\u00e9 le 2013-10-04", "icon": "circle", "iconstyle": {"fillColor": "red", "fillOpacity": 0.8, "stroke": "true", "radius": 7}}, "geometry": {"type": "Point", "coordinates": [-0.5672, 48.7484]}}]}, {
+                    pointToLayer: function (feature, latLng) {
+                        if (feature.properties.icon == 'marker') {
+                            if(feature.properties.iconstyle){
+                                return new L.Marker(latLng, {
+                                    icon: L.icon(feature.properties.iconstyle)});
+                            }
+                            //else
+                            return new L.Marker(latLng);
+                        }
+                        if (feature.properties.icon == 'circle') {
+                            if (feature.properties.iconstyle) {
+                                return new L.circleMarker(latLng, feature.properties.iconstyle)
+                                };
+                            //else
+                            return new L.circleMarker(latLng);
+                        }
+                        //else
 
-        marker_760543d5fdc673cda1cca49ac15ce6c7.bindPopup(popup_826c92fa6826542d01631be39a3e0662)
-        ;
+                        return new L.Marker(latLng);
+                    },
+                    style: function (feature) {
+                        return feature.properties.style;
+                    },
+                    onEachFeature: function(feature, layer) {
+                        if (feature.properties.popup) {
+                        layer.bindPopup(feature.properties.popup);
+                        }
+                        if (feature.properties.tooltip) {
+                        layer.bindTooltip(feature.properties.tooltip);
+                        }
+                    }
+                })
 
-        
-    
-    
-            var marker_2b4bed84b3a34321773c11d937a8c994 = L.marker(
-                [48.8567, 2.3508],
+            var timestamped_geo_json_2d48c6bc60643761e3c4b7a0a372ca69 = L.timeDimension.layer.geoJson(
+                geoJsonLayer,
                 {
-}
-            ).addTo(map_7bd31c3c4c17d5f2281a4d0a9d35a717);
+                    updateTimeDimension: true,
+                    addlastPoint: true,
+                    duration: undefined,
+                }
+            ).addTo(map_386e29d3f45dc146112e2bdddd4d9a96);
         
-    
-        var popup_786c72ef3d18e887999964dcd5fc9fa6 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_51b355d512a8ac784cc961c439a1aff4 = $(`<div id="html_51b355d512a8ac784cc961c439a1aff4" style="width: 100.0%; height: 100.0%;">Paris</div>`)[0];
-                popup_786c72ef3d18e887999964dcd5fc9fa6.setContent(html_51b355d512a8ac784cc961c439a1aff4);
-            
-        
-
-        marker_2b4bed84b3a34321773c11d937a8c994.bindPopup(popup_786c72ef3d18e887999964dcd5fc9fa6)
-        ;
-
-        
-    
-    
-            var marker_c476fa86a8e33b3d30df90bbe059ff1a = L.marker(
-                [45.7589, 4.8492],
-                {
-}
-            ).addTo(map_7bd31c3c4c17d5f2281a4d0a9d35a717);
-        
-    
-        var popup_9f79cf26a289957ee92799e50e4aa90d = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_d1dee5deef37ce9cb13d116880cd458c = $(`<div id="html_d1dee5deef37ce9cb13d116880cd458c" style="width: 100.0%; height: 100.0%;">Lyon</div>`)[0];
-                popup_9f79cf26a289957ee92799e50e4aa90d.setContent(html_d1dee5deef37ce9cb13d116880cd458c);
-            
-        
-
-        marker_c476fa86a8e33b3d30df90bbe059ff1a.bindPopup(popup_9f79cf26a289957ee92799e50e4aa90d)
-        ;
-
-        
-    
-    
-            var marker_9a3adedfb36a6aeaa245d9ff87731f54 = L.marker(
-                [43.2965, 5.3698],
-                {
-}
-            ).addTo(map_7bd31c3c4c17d5f2281a4d0a9d35a717);
-        
-    
-        var popup_5f0d7ec7e56990ffb77dd6718be9ef35 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_1bb7e7a01e7307b9ce6bea19189f1f5f = $(`<div id="html_1bb7e7a01e7307b9ce6bea19189f1f5f" style="width: 100.0%; height: 100.0%;">Marseille</div>`)[0];
-                popup_5f0d7ec7e56990ffb77dd6718be9ef35.setContent(html_1bb7e7a01e7307b9ce6bea19189f1f5f);
-            
-        
-
-        marker_9a3adedfb36a6aeaa245d9ff87731f54.bindPopup(popup_5f0d7ec7e56990ffb77dd6718be9ef35)
-        ;
-
-        
-    
-    
-            var marker_657d2322fae3b0f0f3e146f8632d63c3 = L.marker(
-                [44.8378, -0.5792],
-                {
-}
-            ).addTo(map_7bd31c3c4c17d5f2281a4d0a9d35a717);
-        
-    
-        var popup_cc5f277512c6f750ab30d6d6b8eab201 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_a751c02cc7c7c65ef7b511b52bf2d4f0 = $(`<div id="html_a751c02cc7c7c65ef7b511b52bf2d4f0" style="width: 100.0%; height: 100.0%;">Bordeaux</div>`)[0];
-                popup_cc5f277512c6f750ab30d6d6b8eab201.setContent(html_a751c02cc7c7c65ef7b511b52bf2d4f0);
-            
-        
-
-        marker_657d2322fae3b0f0f3e146f8632d63c3.bindPopup(popup_cc5f277512c6f750ab30d6d6b8eab201)
-        ;
-
-        
-    
-    
-            var marker_aeeef7db4b4e9f6ef23bebe3a874d309 = L.marker(
-                [14.6083, -61.0067],
-                {
-}
-            ).addTo(map_7bd31c3c4c17d5f2281a4d0a9d35a717);
-        
-    
-        var popup_a9c4a0984f1956b3e1ad1e05c8307c83 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_bcc7d5938752678efd8989daf5cea714 = $(`<div id="html_bcc7d5938752678efd8989daf5cea714" style="width: 100.0%; height: 100.0%;">Fort-de-France</div>`)[0];
-                popup_a9c4a0984f1956b3e1ad1e05c8307c83.setContent(html_bcc7d5938752678efd8989daf5cea714);
-            
-        
-
-        marker_aeeef7db4b4e9f6ef23bebe3a874d309.bindPopup(popup_a9c4a0984f1956b3e1ad1e05c8307c83)
-        ;
-
-        
-    
-    
-            var marker_a4a642eeb6c77ff634e6f59b78ff0812 = L.marker(
-                [14.6033, -60.9967],
-                {
-}
-            ).addTo(map_7bd31c3c4c17d5f2281a4d0a9d35a717);
-        
-    
-        var popup_7e8f4e75d5c6bd90136c11eeb04d5294 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_ded65cf9712f9a68c195f80a30bc86b3 = $(`<div id="html_ded65cf9712f9a68c195f80a30bc86b3" style="width: 100.0%; height: 100.0%;">Le Lamentin</div>`)[0];
-                popup_7e8f4e75d5c6bd90136c11eeb04d5294.setContent(html_ded65cf9712f9a68c195f80a30bc86b3);
-            
-        
-
-        marker_a4a642eeb6c77ff634e6f59b78ff0812.bindPopup(popup_7e8f4e75d5c6bd90136c11eeb04d5294)
-        ;
-
-        
-    
 </script>
 </html>
