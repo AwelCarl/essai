@@ -13,7 +13,6 @@ var maxPower = 350;
 var showAllPrevious = false;
 var colorScale = chroma.scale(['blue', 'yellow', 'red']).domain([0, 350]);
 
-// Create legend control
 var legend = L.control({position: 'topright'});
 legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'info legend');
@@ -62,23 +61,8 @@ fetch('bornes_recharge_mensuel.json')
     .then(data => {
         dates = Object.keys(data).sort().filter(date => date >= "2014-01");
         
-        var timeline = L.control({position: 'bottomleft'});
-        timeline.onAdd = function(map) {
-            var div = L.DomUtil.create('div', 'timeline-control');
-            var input = L.DomUtil.create('input', 'timeline-input', div);
-            input.type = 'range';
-            input.min = 0;
-            input.max = dates.length - 1;
-            input.value = 0;
-            
-            input.addEventListener('input', function() {
-                currentDateIndex = parseInt(this.value);
-                updateMap(true);
-            });
-            
-            return div;
-        };
-        timeline.addTo(map);
+        var timelineSlider = document.getElementById('timeline');
+        timelineSlider.max = dates.length - 1;
 
         function updateMap(skipInterval) {
             if (currentDateIndex >= dates.length) {
@@ -89,7 +73,7 @@ fetch('bornes_recharge_mensuel.json')
             var currentDate = dates[currentDateIndex];
             document.getElementById('current-date').textContent = currentDate;
 
-            document.querySelector('.timeline-input').value = currentDateIndex;
+            document.getElementById('timeline').value = currentDateIndex;
 
             markers.clearLayers();
 
@@ -154,6 +138,11 @@ fetch('bornes_recharge_mensuel.json')
 
         document.getElementById('show-all-previous').addEventListener('change', function() {
             showAllPrevious = this.checked;
+            updateMap(true);
+        });
+
+        document.getElementById('timeline').addEventListener('input', function() {
+            currentDateIndex = parseInt(this.value);
             updateMap(true);
         });
 
