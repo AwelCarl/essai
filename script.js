@@ -23,14 +23,6 @@ legend.onAdd = function (map) {
 };
 legend.addTo(map);
 
-function formatQuarterDate(dateString) {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const quarter = Math.floor(month / 3) + 1;
-    return `${year}-Q${quarter}`;
-}
-
 function updateLegend() {
     const legendContent = document.getElementById('legend-content');
     legendContent.innerHTML = '';
@@ -80,7 +72,7 @@ function updateMap(skipInterval) {
         return;
     }
     var currentDate = dates[currentDateIndex];
-    document.getElementById('current-date').textContent = isQuarterly ? formatQuarterDate(currentDate) : currentDate;
+    document.getElementById('current-date').textContent = currentDate;
     document.getElementById('timeline').value = currentDateIndex;
     markers.clearLayers();
     var startIndex = showAllPrevious ? 0 : currentDateIndex;
