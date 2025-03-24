@@ -21,6 +21,9 @@
         <label for="speed">Vitesse:</label>
         <input type="range" id="speed" min="100" max="2000" value="1000" step="100">
         <span id="current-date"></span>
+        <br>
+        <input type="checkbox" id="show-all-previous" name="show-all-previous">
+        <label for="show-all-previous">Afficher tous les points précédents</label>
     </div>
     <div id="power-filter">
         <label for="min-power">Puissance min:</label>
@@ -46,6 +49,7 @@
         var speed = 1000;
         var minPower = 0;
         var maxPower = 350;
+        var showAllPrevious = false;
         var colorScale = chroma.scale(['blue', 'yellow', 'red']).domain([0, 350]);
 
         fetch('bornes_recharge_mensuel.json')
@@ -83,22 +87,27 @@
                     document.querySelector('.timeline-input').value = currentDateIndex;
 
                     markers.clearLayers();
-                    data[currentDate].forEach(point => {
-                        if (point.puissance_nominale >= minPower && point.puissance_nominale <= maxPower) {
-                            L.circleMarker([point.latitude, point.longitude], {
-                                radius: 5,
-                                fillColor: colorScale(point.puissance_nominale).hex(),
-                                color: "#000",
-                                weight: 1,
-                                opacity: 1,
-                                fillOpacity: 0.8
-                            }).bindPopup(`
-                                <b>Code INSEE:</b> ${point.code_insee}<br>
-                                <b>Nombre de PDC:</b> ${point.nbre_pdc}<br>
-                                <b>Puissance nominale:</b> ${point.puissance_nominale} kW
-                            `).addTo(markers);
-                        }
-                    });
+
+                    var startIndex = showAllPrevious ? 0 : currentDateIndex;
+                    for (var i = startIndex; i <= currentDateIndex; i++) {
+                        var date = dates[i];
+                        data[date].forEach(point => {
+                            if (point.puissance_nominale >= minPower && point.puissance_nominale <= maxPower) {
+                                L.circleMarker([point.latitude, point.longitude], {
+                                    radius: 5,
+                                    fillColor: colorScale(point.puissance_nominale).hex(),
+                                    color: "#000",
+                                    weight: 1,
+                                    opacity: 1,
+                                    fillOpacity: 0.8
+                                }).bindPopup(`
+                                    <b>Code INSEE:</b> ${point.code_insee}<br>
+                                    <b>Nombre de PDC:</b> ${point.nbre_pdc}<br>
+                                    <b>Puissance nominale:</b> ${point.puissance_nominale} kW
+                                `).addTo(markers);
+                            }
+                        });
+                    }
 
                     if (!skipInterval) {
                         currentDateIndex++;
@@ -131,6 +140,11 @@
                 document.getElementById('max-power').addEventListener('input', function() {
                     maxPower = parseInt(this.value);
                     document.getElementById('max-power-value').textContent = maxPower;
+                    updateMap(true);
+                });
+
+                document.getElementById('show-all-previous').addEventListener('change', function() {
+                    showAllPrevious = this.checked;
                     updateMap(true);
                 });
 
