@@ -1,0 +1,22 @@
+#map { 
+    height: 600px; 
+    width: 100%; 
+}
+
+#controls { 
+    margin-top: 10px; 
+}
+
+.timeline-control { 
+    width: 100%; 
+    padding: 10px; 
+    background: white; 
+}
+
+.timeline-input { 
+    width: 100%; 
+}
+
+#power-filter { 
+    margin-top: 10px; 
+}
