@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
         #map { height: 600px; width: 100%; }
+        #controls { margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -32,7 +33,7 @@
         fetch('bornes_recharge_mensuel.json')
             .then(response => response.json())
             .then(data => {
-                dates = Object.keys(data).sort();
+                dates = Object.keys(data).sort().filter(date => date >= "2014-01");
                 
                 function updateMap() {
                     if (currentDateIndex >= dates.length) {
@@ -43,7 +44,6 @@
                     var currentDate = dates[currentDateIndex];
                     document.getElementById('current-date').textContent = currentDate;
 
-                    markers.clearLayers();
                     data[currentDate].forEach(point => {
                         L.circleMarker([point.latitude, point.longitude], {
                             radius: 5,
@@ -71,7 +71,7 @@
                     clearInterval(playInterval);
                 });
 
-                updateMap(); // Affiche la première date
+                updateMap(); // Affiche la première date (2014-01)
             });
     </script>
 </body>
