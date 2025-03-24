@@ -13,32 +13,48 @@ var maxPower = 350;
 var showAllPrevious = false;
 var colorScale = chroma.scale(['blue', 'yellow', 'red']).domain([0, 350]);
 
+// Create legend control
+var legend = L.control({position: 'topright'});
+legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'info legend');
+    div.innerHTML = '<h4>Puissance (kW)</h4><div id="legend-content"></div>';
+    return div;
+};
+legend.addTo(map);
+
 function updateLegend() {
-    const legend = document.getElementById('legend');
-    legend.innerHTML = '<h4>Puissance (kW)</h4>';
+    const legendContent = document.getElementById('legend-content');
+    legendContent.innerHTML = '';
 
     const steps = 5;
     const powerRange = maxPower - minPower;
     const stepSize = powerRange / steps;
 
+    const legendContainer = document.createElement('div');
+    legendContainer.style.display = 'flex';
+    legendContainer.style.alignItems = 'center';
+
     for (let i = 0; i <= steps; i++) {
         const power = minPower + i * stepSize;
         const color = colorScale(power).hex();
         
-        const item = document.createElement('div');
-        item.className = 'legend-item';
-        
         const colorBox = document.createElement('div');
-        colorBox.className = 'legend-color';
+        colorBox.style.width = '20px';
+        colorBox.style.height = '20px';
         colorBox.style.backgroundColor = color;
+        colorBox.style.display = 'inline-block';
         
-        const label = document.createElement('span');
-        label.textContent = Math.round(power);
-        
-        item.appendChild(colorBox);
-        item.appendChild(label);
-        legend.appendChild(item);
+        legendContainer.appendChild(colorBox);
     }
+
+    const labels = document.createElement('div');
+    labels.style.display = 'flex';
+    labels.style.justifyContent = 'space-between';
+    labels.style.width = '100%';
+    labels.innerHTML = `<span>${minPower}</span><span>${maxPower}</span>`;
+
+    legendContent.appendChild(legendContainer);
+    legendContent.appendChild(labels);
 }
 
 fetch('bornes_recharge_mensuel.json')
