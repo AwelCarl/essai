@@ -13,6 +13,34 @@ var maxPower = 350;
 var showAllPrevious = false;
 var colorScale = chroma.scale(['blue', 'yellow', 'red']).domain([0, 350]);
 
+function updateLegend() {
+    const legend = document.getElementById('legend');
+    legend.innerHTML = '<h4>Puissance (kW)</h4>';
+
+    const steps = 5;
+    const powerRange = maxPower - minPower;
+    const stepSize = powerRange / steps;
+
+    for (let i = 0; i <= steps; i++) {
+        const power = minPower + i * stepSize;
+        const color = colorScale(power).hex();
+        
+        const item = document.createElement('div');
+        item.className = 'legend-item';
+        
+        const colorBox = document.createElement('div');
+        colorBox.className = 'legend-color';
+        colorBox.style.backgroundColor = color;
+        
+        const label = document.createElement('span');
+        label.textContent = Math.round(power);
+        
+        item.appendChild(colorBox);
+        item.appendChild(label);
+        legend.appendChild(item);
+    }
+}
+
 fetch('bornes_recharge_mensuel.json')
     .then(response => response.json())
     .then(data => {
@@ -70,6 +98,8 @@ fetch('bornes_recharge_mensuel.json')
                 });
             }
 
+            updateLegend();
+
             if (!skipInterval) {
                 currentDateIndex++;
             }
@@ -96,12 +126,14 @@ fetch('bornes_recharge_mensuel.json')
             minPower = parseInt(this.value);
             document.getElementById('min-power-value').textContent = minPower;
             updateMap(true);
+            updateLegend();
         });
 
         document.getElementById('max-power').addEventListener('input', function() {
             maxPower = parseInt(this.value);
             document.getElementById('max-power-value').textContent = maxPower;
             updateMap(true);
+            updateLegend();
         });
 
         document.getElementById('show-all-previous').addEventListener('change', function() {
