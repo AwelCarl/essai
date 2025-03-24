@@ -11,73 +11,67 @@
 </head>
 <body>
     <div id="map"></div>
+    <div id="controls">
+        <button id="play">Lecture</button>
+        <button id="pause">Pause</button>
+        <span id="current-date"></span>
+    </div>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
         var map = L.map('map').setView([46.2276, 2.2137], 6);
-
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
+        var markers = L.layerGroup().addTo(map);
+        var dates = [];
+        var currentDateIndex = 0;
+        var playInterval;
+
         fetch('bornes_recharge_mensuel.json')
             .then(response => response.json())
             .then(data => {
-                var timelineControl = L.control({position: 'bottomleft'});
-                var currentLayer;
-
-                timelineControl.onAdd = function(map) {
-                    var div = L.DomUtil.create('div', 'timeline-control');
-                    var select = L.DomUtil.create('select', 'timeline-select', div);
-                    Object.keys(data).sort().forEach(month => {
-                        var option = L.DomUtil.create('option', '', select);
-                        option.value = month;
-                        option.innerHTML = month;
-                    });
-                    L.DomEvent.on(select, 'change', function() {
-                        updateMap(this.value);
-                    });
-                    return div;
-                };
-
-                timelineControl.addTo(map);
-
-                function updateMap(selectedMonth) {
-                    if (currentLayer) {
-                        map.removeLayer(currentLayer);
+                dates = Object.keys(data).sort();
+                
+                function updateMap() {
+                    if (currentDateIndex >= dates.length) {
+                        clearInterval(playInterval);
+                        return;
                     }
-                    currentLayer = L.geoJSON({
-                        type: "FeatureCollection",
-                        features: data[selectedMonth].map(point => ({
-                            type: "Feature",
-                            geometry: {
-                                type: "Point",
-                                coordinates: [point.longitude, point.latitude]
-                            },
-                            properties: point
-                        }))
-                    }, {
-                        pointToLayer: function(feature, latlng) {
-                            return L.circleMarker(latlng, {
-                                radius: 8,
-                                fillColor: "#ff7800",
-                                color: "#000",
-                                weight: 1,
-                                opacity: 1,
-                                fillOpacity: 0.8
-                            });
-                        },
-                        onEachFeature: function(feature, layer) {
-                            layer.bindPopup(`
-                                <b>Code INSEE:</b> ${feature.properties.code_insee}<br>
-                                <b>Nombre de PDC:</b> ${feature.properties.nbre_pdc}<br>
-                                <b>Puissance nominale:</b> ${feature.properties.puissance_nominale} kW
-                            `);
-                        }
-                    }).addTo(map);
+
+                    var currentDate = dates[currentDateIndex];
+                    document.getElementById('current-date').textContent = currentDate;
+
+                    markers.clearLayers();
+                    data[currentDate].forEach(point => {
+                        L.circleMarker([point.latitude, point.longitude], {
+                            radius: 5,
+                            fillColor: "#ff7800",
+                            color: "#000",
+                            weight: 1,
+                            opacity: 1,
+                            fillOpacity: 0.8
+                        }).bindPopup(`
+                            <b>Code INSEE:</b> ${point.code_insee}<br>
+                            <b>Nombre de PDC:</b> ${point.nbre_pdc}<br>
+                            <b>Puissance nominale:</b> ${point.puissance_nominale} kW
+                        `).addTo(markers);
+                    });
+
+                    currentDateIndex++;
                 }
 
-                updateMap(Object.keys(data).sort()[0]);
+                document.getElementById('play').addEventListener('click', () => {
+                    clearInterval(playInterval);
+                    playInterval = setInterval(updateMap, 1000); // Change de mois toutes les secondes
+                });
+
+                document.getElementById('pause').addEventListener('click', () => {
+                    clearInterval(playInterval);
+                });
+
+                updateMap(); // Affiche la première date
             });
     </script>
 </body>
