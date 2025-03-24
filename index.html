@@ -1,39 +1,36 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carte des bornes de recharge</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-    <div id="map"></div>
-    <div id="legend"></div>
-    <div id="controls">
-        <button id="play">Lecture</button>
-        <button id="pause">Pause</button>
-        <label for="speed">Vitesse:</label>
-        <input type="range" id="speed" min="100" max="2000" value="1000" step="100">
-        <span id="current-date"></span>
-        <br>
-        <input type="checkbox" id="show-all-previous" name="show-all-previous">
-        <label for="show-all-previous">Afficher tous les points précédents</label>
-        <br>
-        <input type="checkbox" id="toggle-points" checked>
-        <label for="toggle-points">Afficher les points</label>
-    </div>
-    <div id="power-filter">
-        <label for="min-power">Puissance min:</label>
-        <input type="range" id="min-power" min="0" max="400" value="0" step="10">
-        <span id="min-power-value">0</span>
-        <label for="max-power">Puissance max:</label>
-        <input type="range" id="max-power" min="0" max="450" value="450" step="10">
-        <span id="max-power-value">450</span>
-    </div>
-
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
-    <script src="script.js"></script>
-</body>
-</html>
+ <html lang="fr">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Carte des bornes de recharge</title>
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+     <link rel="stylesheet" href="style.css" />
+ </head>
+ <body>
+     <div id="map"></div>
+     <div id="legend"></div>
+     <div id="controls">
+         <button id="play">Lecture</button>
+         <button id="pause">Pause</button>
+         <label for="speed">Vitesse:</label>
+         <input type="range" id="speed" min="100" max="2000" value="1000" step="100">
+         <span id="current-date"></span>
+         <br>
+         <input type="checkbox" id="show-all-previous" name="show-all-previous">
+         <label for="show-all-previous">Afficher tous les points précédents</label>
+     </div>
+     <div id="power-filter">
+         <label for="min-power">Puissance min:</label>
+         <input type="range" id="min-power" min="0" max="400" value="0" step="10">
+         <span id="min-power-value">0</span>
+         <label for="max-power">Puissance max:</label>
+         <input type="range" id="max-power" min="0" max="450" value="450" step="10">
+         <span id="max-power-value">450</span>
+     </div>
+ 
+     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
+     <script src="script.js"></script>
+ </body>
+ </html>
