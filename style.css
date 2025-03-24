@@ -43,4 +43,20 @@
     margin-right: 5px;
     border: 1px solid #000;
 }
+.info.legend {
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.info.legend h4 {
+    margin: 0 0 5px;
+    font-size: 14px;
+}
+
+#legend-content {
+    font-size: 12px;
+}
+
 
