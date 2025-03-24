@@ -9,9 +9,9 @@ var currentDateIndex = 0;
 var playInterval;
 var speed = 1000;
 var minPower = 0;
-var maxPower = 350;
+var maxPower = 450;
 var showAllPrevious = false;
-var colorScale = chroma.scale(['blue', 'yellow', 'red']).domain([0, 350]);
+var colorScale = chroma.scale(['blue', 'yellow', 'red']).domain([0, 450]);
 
 // Create legend control
 var legend = L.control({position: 'topright'});
