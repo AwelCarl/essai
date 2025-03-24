@@ -9,11 +9,11 @@ var currentDateIndex = 0;
 var playInterval;
 var speed = 1000;
 var minPower = 0;
-var maxPower = 350;
+var maxPower = 450;
 var showAllPrevious = false;
 var isQuarterly = false;
 var currentData = {};
-var colorScale = chroma.scale(['blue', 'yellow', 'red']).domain([0, 350]);
+var colorScale = chroma.scale(['yellow', 'red']).domain([0, 450]);
 
 var legend = L.control({position: 'topright'});
 legend.onAdd = function (map) {
