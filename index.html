@@ -8,34 +8,76 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div id="controls">
-        <button id="play">Lecture</button>
-        <button id="pause">Pause</button>
-        <label for="speed">Vitesse:</label>
-        <input type="range" id="speed" min="100" max="2000" value="1000" step="100">
-        <span id="current-date"></span>
-        <input type="checkbox" id="show-all-previous" name="show-all-previous">
-        <label for="show-all-previous">Afficher tous les points précédents</label>
-         <div class="switch-container">
-        <label class="switch">
-            <input type="checkbox" id="period-switch">
-            <span class="slider round"></span>
-        </label>
-        <span id="period-label">Mensuel</span>
-    </div>
-    </div>
-    <div id="timeline-container">
-        <input type="range" id="timeline" min="0" max="100" value="0" step="1">
-    </div>
-    <div id="map"></div>
-    <div id="power-filter">
-        <label for="min-power">Puissance min:</label>
-        <input type="range" id="min-power" min="0" max="350" value="0" step="10">
-        <span id="min-power-value">0</span>
-        <label for="max-power">Puissance max:</label>
-        <input type="range" id="max-power" min="0" max="450" value="350" step="10">
-        <span id="max-power-value">350</span>
-    </div>
+    <header>
+        <h1>Carte des bornes de recharge</h1>
+    </header>
+
+    <main>
+        <section id="map-controls">
+            <div id="playback-controls">
+                <button id="play">Lecture</button>
+                <button id="pause">Pause</button>
+                <div class="speed-control">
+                    <label for="speed">Vitesse:</label>
+                    <input type="range" id="speed" min="100" max="2000" value="1000" step="100">
+                </div>
+            </div>
+
+            <div id="date-display">
+                <span id="current-date"></span>
+            </div>
+
+            <div id="display-options">
+                <input type="checkbox" id="show-all-previous" name="show-all-previous">
+                <label for="show-all-previous">Afficher les points précédents</label>
+            </div>
+
+            <div class="switch-container">
+                <label class="switch">
+                    <input type="checkbox" id="period-switch">
+                    <span class="slider round"></span>
+                </label>
+                <span id="period-label">Mensuel</span>
+            </div>
+        </section>
+
+        <section id="timeline-section">
+            <div id="timeline-container">
+                <input type="range" id="timeline" min="0" max="100" value="0" step="1">
+                <div id="timeline-markers"></div>
+            </div>
+        </section>
+
+        <section id="map-container">
+            <div id="map"></div>
+        </section>
+
+        <section id="power-controls">
+            <div id="power-presets">
+                <button id="ultra-low-power">0-11 kW</button>
+                <button id="low-power">11-22 kW</button>
+                <button id="medium-power">40-60 kW</button>
+                <button id="high-power">250-450 kW</button>
+            </div>
+
+            <div id="power-filter">
+                <div class="power-range">
+                    <label for="min-power">Puissance min:</label>
+                    <input type="range" id="min-power" min="0" max="350" value="0" step="10">
+                    <span id="min-power-value">0</span>
+                </div>
+                <div class="power-range">
+                    <label for="max-power">Puissance max:</label>
+                    <input type="range" id="max-power" min="0" max="450" value="350" step="10">
+                    <span id="max-power-value">350</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Carte des bornes de recharge</p>
+    </footer>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
