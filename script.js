@@ -33,7 +33,7 @@ class ChargingMap {
             speed: this.config.INITIAL_SPEED,
             minPower: 0,
             maxPower: 450,
-            showAllPrevious: false,
+            showAllPrevious: true,
             isQuarterly: false,
             currentData: {},
             dates: []
@@ -233,6 +233,7 @@ class ChargingMap {
         });
 
         const powerPresets = {
+            'reset-power': [0, 450],
             'ultra-low-power': [0, 11],
             'low-power': [11, 22],
             'medium-power': [40, 60],
