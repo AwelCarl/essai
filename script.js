@@ -3,7 +3,7 @@ class ChargingMap {
         this.config = {
             MAP_CENTER: [46.2276, 2.2137],
             MAP_ZOOM: 6,
-            INITIAL_SPEED: 1000,
+            INITIAL_SPEED: 100,
             COLOR_SCALE: ['yellow', 'red'],
             TILE_LAYER_URL: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             DATA_FILES: {
