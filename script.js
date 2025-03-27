@@ -34,7 +34,7 @@ class ChargingMap {
             minPower: 0,
             maxPower: 450,
             showAllPrevious: true,
-            isQuarterly: false,
+            isQuarterly: true,
             currentData: {},
             dates: []
         };
